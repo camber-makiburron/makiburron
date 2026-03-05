@@ -1,0 +1,223 @@
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Menú | Maki Burron</title>
+  <style>
+    :root{
+      --bg:#0b1220; --card:rgba(255,255,255,.06); --card2:rgba(255,255,255,.10);
+      --text:#eef2ff; --muted:rgba(238,242,255,.75);
+      --brand:#22c55e; --brand2:#38bdf8; --warn:#fbbf24; --border:rgba(255,255,255,.14);
+      --shadow:0 18px 50px rgba(0,0,0,.45); --radius:18px; --radius2:14px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:var(--font); color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 10% 10%, rgba(56,189,248,.18), transparent 55%),
+        radial-gradient(900px 700px at 85% 20%, rgba(34,197,94,.16), transparent 60%),
+        linear-gradient(180deg, #070b14 0%, var(--bg) 55%, #070b14 100%);
+    }
+    header{position:sticky; top:0; z-index:30; backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, rgba(11,18,32,.92), rgba(11,18,32,.65));
+      border-bottom:1px solid var(--border);
+    }
+    .header-inner{width:min(1100px, 92vw); margin:0 auto; padding:14px 0; display:flex; align-items:center; justify-content:space-between; gap:12px;}
+    .brand h1{margin:0; font-size:18px; letter-spacing:.2px;}
+    .brand small{color:var(--muted)}
+    .btn{display:inline-block; text-decoration:none; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06); color:var(--text); font-size:13px; transition:transform .12s ease, background .12s ease;}
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.10);}
+    .btn.primary{background: linear-gradient(135deg, rgba(34,197,94,.85), rgba(56,189,248,.75)); color:#071018; font-weight:700;}
+
+    .wrap{width:min(1100px, 92vw); margin:20px auto 60px;}
+    .hero{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px;
+      padding:18px; border-radius:var(--radius); border:1px solid var(--border); background: rgba(255,255,255,.05); box-shadow: var(--shadow);}
+    .hero h2{margin:0; font-size:20px;}
+    .hero p{margin:6px 0 0; color:var(--muted); max-width: 70ch; line-height:1.35;}
+    .cta{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+
+    .grid{margin-top:14px; display:grid; grid-template-columns: repeat(12, 1fr); gap:14px;}
+    .card{grid-column: span 12; background:var(--card); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; box-shadow: 0 16px 40px rgba(0,0,0,.25);}
+    @media (min-width: 820px){ .card{grid-column: span 6;} }
+    .photo{width:100%; height:220px; object-fit:cover; display:block;}
+    .photo.placeholder{height:220px; background: linear-gradient(135deg, rgba(56,189,248,.20), rgba(34,197,94,.14));}
+    .card-body{padding:14px 14px 16px;}
+    .top{display:flex; justify-content:space-between; gap:10px; align-items:flex-start;}
+    .top h3{margin:0; font-size:16px;}
+    .price{font-weight:800; color: rgba(255,255,255,.95);}
+    .sub{margin-top:6px; color:var(--muted); font-size:12px; line-height:1.35;}
+    .meta{margin-top:10px; display:flex; flex-wrap:wrap; gap:8px;}
+    .pill{font-size:11px; padding:6px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.05);}
+    .pill.blue{border-color: rgba(56,189,248,.35); background: rgba(56,189,248,.12);}
+    .pill.green{border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.12);}
+
+    details{margin-top:10px;}
+    summary{cursor:pointer; user-select:none; font-size:12px; color: rgba(238,242,255,.9);}
+    .tags{margin-top:10px; display:flex; flex-wrap:wrap; gap:8px;}
+    .tag{font-size:12px; padding:7px 9px; border-radius:12px; background: var(--card2); border:1px solid rgba(255,255,255,.14);}
+
+    .section{margin-top:18px; padding:16px; border-radius:var(--radius); border:1px dashed rgba(255,255,255,.22); background: rgba(255,255,255,.03);}
+    .section h3{margin:0 0 10px; font-size:16px;}
+    .addons{display:grid; grid-template-columns: repeat(12,1fr); gap:12px;}
+    .addon{grid-column: span 12; background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:12px; position:relative;}
+    @media (min-width: 820px){ .addon{grid-column: span 4;} }
+    .addon small{display:block; margin-top:4px; color:var(--muted);}
+    .addon-price{position:absolute; top:12px; right:12px; font-weight:800;}
+
+    .qr{display:flex; gap:14px; align-items:center; flex-wrap:wrap;}
+    .qr img{width:160px; height:160px; background:#fff; padding:10px; border-radius:14px;}
+    .note{color:var(--muted); font-size:12px; line-height:1.4;}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <h1>Maki Burron</h1>
+        <small>Sushi estilo burrito para llevar</small>
+      </div>
+      <a class="btn primary" href="https://wa.me/526641644646?text=Hola%2C%20quiero%20hacer%20un%20pedido%20del%20men%C3%BA.%20" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <h2>Sushi estilo burrito</h2>
+        <p><strong>Complemento incluido:</strong> Edamames picositos o ensalada verde<br><strong>Upgrade:</strong> Empanizado flamin (+$)</p>
+      </div>
+      <div class="cta">
+        <a class="btn" href="#menu">Ver makis</a>
+        <a class="btn" href="#ordenes">Órdenes adicionales</a>
+      </div>
+    </section>
+
+    <section id="menu" class="grid" aria-label="Makis">
+      
+      <article class="card">
+        <img class="photo" src="menu_assets/media_1.png" alt="Maki Salmón" loading="lazy">
+        <div class="card-body">
+          <div class="top">
+            <h3>Maki Salmón</h3>
+            <div class="price">$ 150</div>
+          </div>
+          <div class="sub">Clásico, fresco y cremoso</div>
+          <div class="meta">
+            <span class="pill">⭐ Más vendido</span>
+            <span class="pill blue">Salmón</span>
+            <span class="pill green">Balanceado</span>
+          </div>
+          <details>
+            <summary>Ver ingredientes</summary>
+            <div class="tags"><span class="tag">Alga</span><span class="tag">Arroz</span><span class="tag">Aguacate</span><span class="tag">Pepino</span><span class="tag">Queso Philadelphia</span><span class="tag">Salmón</span><span class="tag">Surimi</span><span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span></div>
+          </details>
+        </div>
+      </article>
+    
+      <article class="card">
+        <img class="photo" src="menu_assets/media_2.png" alt="Maki Atún" loading="lazy">
+        <div class="card-body">
+          <div class="top">
+            <h3>Maki Atún</h3>
+            <div class="price">$ 150</div>
+          </div>
+          <div class="sub">Ligero y fresco</div>
+          <div class="meta">
+            <span class="pill">🥗 Ligero</span>
+            <span class="pill blue">Ahy tuna</span>
+            <span class="pill green">Ligero</span>
+          </div>
+          <details>
+            <summary>Ver ingredientes</summary>
+            <div class="tags"><span class="tag">Alga</span><span class="tag">Arroz</span><span class="tag">Aguacate</span><span class="tag">Pepino</span><span class="tag">Queso Philadelphia</span><span class="tag">Ahy tuna</span><span class="tag">Surimi</span><span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span></div>
+          </details>
+        </div>
+      </article>
+    
+      <article class="card">
+        <img class="photo" src="menu_assets/media_3.png" alt="Maki Camarón" loading="lazy">
+        <div class="card-body">
+          <div class="top">
+            <h3>Maki Camarón</h3>
+            <div class="price">$ 150</div>
+          </div>
+          <div class="sub">Marino y crujiente</div>
+          <div class="meta">
+            <span class="pill">🔥 Recomendado</span>
+            <span class="pill blue">Camarón</span>
+            <span class="pill green">Balanceado</span>
+          </div>
+          <details>
+            <summary>Ver ingredientes</summary>
+            <div class="tags"><span class="tag">Alga</span><span class="tag">Arroz</span><span class="tag">Aguacate</span><span class="tag">Pepino</span><span class="tag">Queso Philadelphia</span><span class="tag">Camarón</span><span class="tag">Surimi</span><span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span></div>
+          </details>
+        </div>
+      </article>
+    
+      <article class="card">
+        <img class="photo" src="menu_assets/media_5.png" alt="Maki Mar y Tierra" loading="lazy">
+        <div class="card-body">
+          <div class="top">
+            <h3>Maki Mar y Tierra</h3>
+            <div class="price">$ 150</div>
+          </div>
+          <div class="sub">El más llenador</div>
+          <div class="meta">
+            <span class="pill">💪 Más llenador</span>
+            <span class="pill blue">Camarón + Arrachera</span>
+            <span class="pill green">Llenador</span>
+          </div>
+          <details>
+            <summary>Ver ingredientes</summary>
+            <div class="tags"><span class="tag">Alga</span><span class="tag">Arroz</span><span class="tag">Aguacate</span><span class="tag">Pepino</span><span class="tag">Queso Philadelphia</span><span class="tag">Camarón</span><span class="tag">Arrachera</span><span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span></div>
+          </details>
+        </div>
+      </article>
+    
+      <article class="card">
+        <img class="photo" src="menu_assets/media_4.png" alt="Maki Combinado" loading="lazy">
+        <div class="card-body">
+          <div class="top">
+            <h3>Maki Combinado</h3>
+            <div class="price">$ 150</div>
+          </div>
+          <div class="sub">Doble proteína premium</div>
+          <div class="meta">
+            <span class="pill">⭐ Premium</span>
+            <span class="pill blue">Salmón + Ahy tuna</span>
+            <span class="pill green">Llenador</span>
+          </div>
+          <details>
+            <summary>Ver ingredientes</summary>
+            <div class="tags"><span class="tag">Alga</span><span class="tag">Arroz</span><span class="tag">Aguacate</span><span class="tag">Pepino</span><span class="tag">Queso Philadelphia</span><span class="tag">Salmón</span><span class="tag">Ahy tuna</span><span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span></div>
+          </details>
+        </div>
+      </article>
+    
+    </section>
+
+    <div class="note" style="margin-top:10px;"></div>
+
+    <section id="ordenes" class="section" aria-label="Órdenes adicionales">
+      <h3>Órdenes adicionales</h3>
+      <div class="addons"><div class='addon'><strong>Edamames</strong><small>Edamames naturales o picositos</small><span class='addon-price'>$ 85</span></div><div class='addon'><strong>Pay de queso – Original</strong><small>Individual</small><span class='addon-price'>$ 65</span></div><div class='addon'><strong>Pay de queso – Café</strong><small>Individual</small><span class='addon-price'>$ 65</span></div><div class='addon'><strong>Pay de queso – Nuez</strong><small>Individual</small><span class='addon-price'>$ 65</span></div></div>
+    </section>
+
+    <section class="section" aria-label="QR pedido">
+      <h3>Escanea y pide</h3>
+      <div class="qr">
+        <img src="menu_assets/qr_whatsapp.png" alt="QR WhatsApp">
+        <div>
+          <div class="note">Escanea el código para abrir WhatsApp con el mensaje listo.</div>
+          <div class="note"><strong>WhatsApp:</strong> +52 664 164 4646</div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="note" style="text-align:center; margin-top:18px;">Menú generado automáticamente desde Excel.</footer>
+  </main>
+</body>
+</html>
