@@ -5,75 +5,125 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Menú | Maki Burron</title>
+
   <style>
     :root{
       --bg:#0b1220; --card:rgba(255,255,255,.06); --card2:rgba(255,255,255,.10);
       --text:#eef2ff; --muted:rgba(238,242,255,.75);
-      --brand:#22c55e; --brand2:#38bdf8; --warn:#fbbf24; --border:rgba(255,255,255,.14);
-      --shadow:0 18px 50px rgba(0,0,0,.45); --radius:18px; --radius2:14px;
-      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      --brand:#22c55e; --brand2:#38bdf8; --border:rgba(255,255,255,.14);
+      --shadow:0 18px 50px rgba(0,0,0,.45);
       --ok:#22c55e; --off:#f43f5e; --chip:#0f172a;
     }
     *{box-sizing:border-box}
-    body{margin:0; font-family:var(--font); color:var(--text);
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
       background:
         radial-gradient(1200px 800px at 10% 10%, rgba(56,189,248,.18), transparent 55%),
         radial-gradient(900px 700px at 85% 20%, rgba(34,197,94,.16), transparent 60%),
         linear-gradient(180deg, #070b14 0%, var(--bg) 55%, #070b14 100%);
+      padding-bottom: 110px; /* espacio para barra de carrito fija */
     }
-    header{position:sticky; top:0; z-index:30; backdrop-filter: blur(12px);
+
+    header{
+      position:sticky; top:0; z-index:30;
+      backdrop-filter: blur(12px);
       background: linear-gradient(180deg, rgba(11,18,32,.92), rgba(11,18,32,.65));
       border-bottom:1px solid var(--border);
     }
-    .header-inner{width:min(1100px, 92vw); margin:0 auto; padding:14px 0; display:flex; align-items:center; justify-content:space-between; gap:12px;}
-    .brand{display:flex; align-items:center; gap:12px;}
-    .brand h1{margin:0; font-size:18px; letter-spacing:.2px;}
-    .brand small{color:var(--muted)}
-    .btn{display:inline-block; text-decoration:none; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.18);
-      background: rgba(255,255,255,.06); color:var(--text); font-size:13px; transition:transform .12s ease, background .12s ease;}
-    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.10);}
-    .btn.primary{background: linear-gradient(135deg, rgba(34,197,94,.85), rgba(56,189,248,.75)); color:#071018; font-weight:700;}
-
-    /* --- Logo en header --- */
-    .logo{
-      width:44px; height:44px; border-radius:12px;
-      object-fit:contain;
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.18);
-      padding:6px;
+    .header-inner{
+      width:min(1100px, 92vw); margin:0 auto; padding:14px 0;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
     }
+
+    .brand{display:flex; align-items:center; gap:12px; min-width:0;}
+    .brand-text{min-width:0; line-height:1.1}
+    .brand h1{
+      margin:0;
+      font-size:26px;
+      font-weight:900;
+      letter-spacing:1.2px;
+      text-transform:uppercase;
+    }
+    .brand small{color:var(--muted); display:block; margin-top:2px}
+
+    .btn{
+      display:inline-block; text-decoration:none; padding:10px 12px; border-radius:12px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06); color:var(--text); font-size:13px;
+      transition:transform .12s ease, background .12s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.10);}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(34,197,94,.85), rgba(56,189,248,.75));
+      color:#071018; font-weight:800;
+      border-color: transparent;
+    }
+    .cta{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
 
     /* Badge abierto/cerrado */
     .status-badge{
       display:inline-flex; align-items:center; gap:8px;
-      padding:6px 10px; border-radius:999px; font-size:12px; font-weight:700;
+      padding:6px 10px; border-radius:999px;
+      font-size:12px; font-weight:800;
       background: var(--chip); border:1px solid rgba(255,255,255,.16);
       white-space: nowrap;
     }
     .dot{width:8px; height:8px; border-radius:50%;}
     .dot.ok{background: var(--ok); box-shadow:0 0 0 3px rgba(34,197,94,.18);}
     .dot.off{background: var(--off); box-shadow:0 0 0 3px rgba(244,63,94,.18);}
-    .status-next{color:var(--muted); font-weight:600;}
+    .status-next{color:var(--muted); font-weight:700;}
 
     .wrap{width:min(1100px, 92vw); margin:20px auto 60px;}
-    .hero{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px;
-      padding:18px; border-radius:var(--radius); border:1px solid var(--border); background: rgba(255,255,255,.05); box-shadow: var(--shadow);}
-    .hero h2{margin:0; font-size:20px;}
-    .hero p{margin:6px 0 0; color:var(--muted); max-width: 70ch; line-height:1.35;}
-    .cta{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
 
+    /* HERO */
+    .hero{
+      display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px;
+      padding:18px; border-radius:18px; border:1px solid var(--border);
+      background: rgba(255,255,255,.05); box-shadow: var(--shadow);
+    }
+    .hero-brand{display:flex; align-items:center; gap:14px; min-width:0;}
+    .hero-logo{
+      width:96px; height:96px;
+      border-radius:18px;
+      object-fit:contain;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.18);
+      padding:10px;
+      box-shadow: 0 14px 28px rgba(0,0,0,.25);
+      flex: 0 0 auto;
+    }
+    .hero-text{min-width:0;}
+    .hero h2{
+      margin:0;
+      font-size:26px;
+      font-weight:900;          /* NEGRITA */
+      text-transform:uppercase; /* MAYÚSCULAS */
+      letter-spacing:.8px;
+    }
+    .hero p{margin:6px 0 0; color:var(--muted); max-width: 70ch; line-height:1.35;}
+
+    /* GRID / CARDS */
     .grid{margin-top:14px; display:grid; grid-template-columns: repeat(12, 1fr); gap:14px;}
-    .card{grid-column: span 12; background:var(--card); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; box-shadow: 0 16px 40px rgba(0,0,0,.25);}
+    .card{
+      grid-column: span 12; background:var(--card); border:1px solid var(--border);
+      border-radius:18px; overflow:hidden; box-shadow: 0 16px 40px rgba(0,0,0,.25);
+      position:relative;
+    }
     @media (min-width: 820px){ .card{grid-column: span 6;} }
+
     .photo{width:100%; height:220px; object-fit:cover; display:block;}
-    .photo.placeholder{height:220px; background: linear-gradient(135deg, rgba(56,189,248,.20), rgba(34,197,94,.14));}
     .card-body{padding:14px 14px 16px;}
     .top{display:flex; justify-content:space-between; gap:10px; align-items:flex-start;}
     .top h3{margin:0; font-size:16px;}
-    .price{font-weight:800; color: rgba(255,255,255,.95);}
+    .price{font-weight:900; color: rgba(255,255,255,.95);}
     .sub{margin-top:6px; color:var(--muted); font-size:12px; line-height:1.35;}
     .meta{margin-top:10px; display:flex; flex-wrap:wrap; gap:8px;}
-    .pill{font-size:11px; padding:6px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.05);}
+    .pill{
+      font-size:11px; padding:6px 8px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.05);
+    }
     .pill.blue{border-color: rgba(56,189,248,.35); background: rgba(56,189,248,.12);}
     .pill.green{border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.12);}
 
@@ -82,98 +132,211 @@
     .tags{margin-top:10px; display:flex; flex-wrap:wrap; gap:8px;}
     .tag{font-size:12px; padding:7px 9px; border-radius:12px; background: var(--card2); border:1px solid rgba(255,255,255,.14);}
 
-    .section{margin-top:18px; padding:16px; border-radius:var(--radius); border:1px dashed rgba(255,255,255,.22); background: rgba(255,255,255,.03);}
+    /* SECTIONS */
+    .section{
+      margin-top:18px; padding:16px; border-radius:18px;
+      border:1px dashed rgba(255,255,255,.22); background: rgba(255,255,255,.03);
+    }
     .section h3{margin:0 0 10px; font-size:16px;}
+
+    /* Horarios */
+    .hours { display: grid; grid-template-columns: repeat(12, 1fr); gap: 12px; }
+    .hour-item {
+      grid-column: span 12; display: flex; align-items: center; gap: 12px;
+      padding: 12px; border-radius: 14px;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.14);
+    }
+    .hour-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 0 0 3px rgba(56,189,248,.15);
+    }
+    .hour-day { font-weight: 800; }
+    .hour-time { color: var(--muted); }
+    @media (min-width: 820px){ .hour-item { grid-column: span 4; } }
+
+    /* Addons */
     .addons{display:grid; grid-template-columns: repeat(12,1fr); gap:12px;}
-    .addon{grid-column: span 12; background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:12px; position:relative;}
+    .addon{
+      grid-column: span 12; background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.14); border-radius:14px;
+      padding:12px; position:relative;
+    }
     @media (min-width: 820px){ .addon{grid-column: span 4;} }
     .addon small{display:block; margin-top:4px; color:var(--muted);}
-    .addon-price{position:absolute; top:12px; right:12px; font-weight:800;}
+    .addon-price{position:absolute; top:12px; right:12px; font-weight:900;}
 
+    /* ====== CONTROLES DE CANTIDAD ====== */
+    .qty-row{
+      margin-top:12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding-top:12px;
+      border-top:1px solid rgba(255,255,255,.10);
+    }
+    .qty-label{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:700;
+    }
+    .qty-controls{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:14px;
+      padding:6px;
+    }
+    .qty-btn{
+      width:34px; height:34px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-weight:900;
+      cursor:pointer;
+    }
+    .qty-btn:hover{ background: rgba(255,255,255,.10); }
+    .qty-input{
+      width:52px;
+      height:34px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.25);
+      color: var(--text);
+      text-align:center;
+      font-weight:900;
+      outline:none;
+    }
+    .qty-input::-webkit-outer-spin-button,
+    .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .qty-input[type=number]{ -moz-appearance: textfield; }
+
+    /* ====== BARRA DE CARRITO FIJA ====== */
+    .cartbar{
+      position:fixed;
+      left:0; right:0; bottom:0;
+      z-index:50;
+      background: rgba(8,12,24,.88);
+      border-top:1px solid rgba(255,255,255,.16);
+      backdrop-filter: blur(12px);
+    }
+    .cart-inner{
+      width:min(1100px,92vw);
+      margin:0 auto;
+      padding:10px 0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .cart-total{
+      display:flex;
+      align-items:baseline;
+      gap:10px;
+    }
+    .cart-total strong{
+      font-size:16px;
+      letter-spacing:.3px;
+    }
+    .cart-total span{
+      color:var(--muted);
+      font-size:12px;
+      font-weight:700;
+    }
+    .cart-items{
+      color:var(--muted);
+      font-size:12px;
+      font-weight:600;
+      max-width: 55ch;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .cart-actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+    .btn.ghost{
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.18);
+      color: var(--text);
+      font-weight:800;
+    }
+
+    /* QR */
     .qr{display:flex; gap:14px; align-items:center; flex-wrap:wrap;}
     .qr img{width:160px; height:160px; background:#fff; padding:10px; border-radius:14px;}
     .note{color:var(--muted); font-size:12px; line-height:1.4;}
 
-    /* --- Horarios --- */
-    .hours { display: grid; grid-template-columns: repeat(12, 1fr); gap: 12px; }
-    .hour-item { grid-column: span 12; display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 14px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.14); }
-    .hour-dot { width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(135deg, var(--brand), var(--brand2)); box-shadow: 0 0 0 3px rgba(56,189,248,.15); }
-    .hour-day { font-weight: 700; }
-    .hour-time { color: var(--muted); }
-    @media (min-width: 820px){ .hour-item { grid-column: span 4; } }
+    @media (max-width:520px){
+      .brand h1{font-size:22px;}
+      .hero-logo{ width:78px; height:78px; border-radius:16px; padding:8px; }
+      .hero h2{ font-size:22px; }
+      .cart-items{max-width: 40ch;}
+    }
   </style>
 </head>
+
 <body>
   <header>
     <div class="header-inner">
       <div class="brand">
-        <img class="logo" src="menu_assets/logo.png" alt="Logo Maki Burron" loading="eager">
-        <div>
-          <h1>Maki Burron</h1>
+        <div class="brand-text">
+          <h1>MAKI BURRON</h1>
           <small>Sushi estilo burrito para llevar</small>
         </div>
-        <!-- Badge en vivo -->
         <span id="status-badge" class="status-badge" aria-live="polite" title="Estado en tiempo real"></span>
       </div>
 
       <div class="cta">
         <a class="btn" href="#horarios">Horarios</a>
-        <a class="btn primary"
-           href="https://wa.me/526641644646?text=Hola%20👋%20Quiero%20hacer%20un%20pedido%20de%20Maki%20Burron"
-           target="_blank" rel="noopener">
-          Pedir por WhatsApp
-        </a>
+        <a id="wa-order-top" class="btn primary" href="#" target="_blank" rel="noopener">Pedir por WhatsApp</a>
       </div>
     </div>
   </header>
 
   <main class="wrap">
     <section class="hero">
-      <div>
-        <h2>Sushi estilo burrito</h2>
-        <p>
-          <strong>Complemento incluido:</strong> Edamames picositos o ensalada verde<br>
-          <strong>Hazlo Flaming +$15</strong>
-        </p>
+      <div class="hero-brand">
+        <img class="hero-logo" src="menu_assets/logo.png" alt="Logo Maki Burron" loading="lazy">
+        <div class="hero-text">
+          <h2>SUSHI BURRITO</h2>
+          <p>
+            <strong>Complemento incluido:</strong> Edamames picositos o ensalada verde<br>
+            <strong>Hazlo Flaming +$15</strong>
+          </p>
+        </div>
       </div>
+
       <div class="cta">
         <a class="btn" href="#menu">Ver makis</a>
         <a class="btn" href="#ordenes">Órdenes adicionales</a>
       </div>
     </section>
 
-    <!-- NUEVA SECCIÓN: HORARIOS -->
     <section id="horarios" class="section" aria-label="Horarios">
       <h3>Horarios</h3>
       <div class="hours">
         <div class="hour-item">
           <span class="hour-dot" aria-hidden="true"></span>
-          <div>
-            <div class="hour-day">Viernes</div>
-            <div class="hour-time">12:00 pm – 9:00 pm</div>
-          </div>
+          <div><div class="hour-day">Viernes</div><div class="hour-time">12:00 pm – 9:00 pm</div></div>
         </div>
-
         <div class="hour-item">
           <span class="hour-dot" aria-hidden="true"></span>
-          <div>
-            <div class="hour-day">Sábado</div>
-            <div class="hour-time">12:00 pm – 9:00 pm</div>
-          </div>
+          <div><div class="hour-day">Sábado</div><div class="hour-time">12:00 pm – 9:00 pm</div></div>
         </div>
-
         <div class="hour-item">
           <span class="hour-dot" aria-hidden="true"></span>
-          <div>
-            <div class="hour-day">Domingo</div>
-            <div class="hour-time">12:00 pm – 9:00 pm</div>
-          </div>
+          <div><div class="hour-day">Domingo</div><div class="hour-time">12:00 pm – 9:00 pm</div></div>
         </div>
       </div>
     </section>
 
     <section id="menu" class="grid" aria-label="Makis">
-      <article class="card">
+      <!-- Card 1 -->
+      <article class="card" data-item="maki-salmon" data-name="Maki Salmón" data-price="150">
         <img class="photo" src="menu_assets/media_1.png" alt="Maki Salmón" loading="lazy">
         <div class="card-body">
           <div class="top">
@@ -186,6 +349,7 @@
             <span class="pill blue">Salmón</span>
             <span class="pill green">Balanceado</span>
           </div>
+
           <details>
             <summary>Ver ingredientes</summary>
             <div class="tags">
@@ -194,10 +358,20 @@
               <span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span>
             </div>
           </details>
+
+          <div class="qty-row">
+            <div class="qty-label">Cantidad</div>
+            <div class="qty-controls">
+              <button class="qty-btn" data-action="minus" aria-label="Disminuir">−</button>
+              <input class="qty-input" type="number" min="0" step="1" value="0" inputmode="numeric" aria-label="Cantidad">
+              <button class="qty-btn" data-action="plus" aria-label="Aumentar">+</button>
+            </div>
+          </div>
         </div>
       </article>
 
-      <article class="card">
+      <!-- Card 2 -->
+      <article class="card" data-item="maki-atun" data-name="Maki Atún" data-price="150">
         <img class="photo" src="menu_assets/media_2.png" alt="Maki Atún" loading="lazy">
         <div class="card-body">
           <div class="top">
@@ -210,6 +384,7 @@
             <span class="pill blue">Ahy tuna</span>
             <span class="pill green">Ligero</span>
           </div>
+
           <details>
             <summary>Ver ingredientes</summary>
             <div class="tags">
@@ -218,10 +393,20 @@
               <span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span>
             </div>
           </details>
+
+          <div class="qty-row">
+            <div class="qty-label">Cantidad</div>
+            <div class="qty-controls">
+              <button class="qty-btn" data-action="minus" aria-label="Disminuir">−</button>
+              <input class="qty-input" type="number" min="0" step="1" value="0" inputmode="numeric" aria-label="Cantidad">
+              <button class="qty-btn" data-action="plus" aria-label="Aumentar">+</button>
+            </div>
+          </div>
         </div>
       </article>
 
-      <article class="card">
+      <!-- Card 3 -->
+      <article class="card" data-item="maki-camaron" data-name="Maki Camarón" data-price="150">
         <img class="photo" src="menu_assets/media_3.png" alt="Maki Camarón" loading="lazy">
         <div class="card-body">
           <div class="top">
@@ -234,6 +419,7 @@
             <span class="pill blue">Camarón</span>
             <span class="pill green">Balanceado</span>
           </div>
+
           <details>
             <summary>Ver ingredientes</summary>
             <div class="tags">
@@ -242,10 +428,20 @@
               <span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span>
             </div>
           </details>
+
+          <div class="qty-row">
+            <div class="qty-label">Cantidad</div>
+            <div class="qty-controls">
+              <button class="qty-btn" data-action="minus" aria-label="Disminuir">−</button>
+              <input class="qty-input" type="number" min="0" step="1" value="0" inputmode="numeric" aria-label="Cantidad">
+              <button class="qty-btn" data-action="plus" aria-label="Aumentar">+</button>
+            </div>
+          </div>
         </div>
       </article>
 
-      <article class="card">
+      <!-- Card 4 -->
+      <article class="card" data-item="maki-marytierra" data-name="Maki Mar y Tierra" data-price="150">
         <img class="photo" src="menu_assets/media_5.png" alt="Maki Mar y Tierra" loading="lazy">
         <div class="card-body">
           <div class="top">
@@ -258,6 +454,7 @@
             <span class="pill blue">Camarón + Arrachera</span>
             <span class="pill green">Llenador</span>
           </div>
+
           <details>
             <summary>Ver ingredientes</summary>
             <div class="tags">
@@ -266,10 +463,20 @@
               <span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span>
             </div>
           </details>
+
+          <div class="qty-row">
+            <div class="qty-label">Cantidad</div>
+            <div class="qty-controls">
+              <button class="qty-btn" data-action="minus" aria-label="Disminuir">−</button>
+              <input class="qty-input" type="number" min="0" step="1" value="0" inputmode="numeric" aria-label="Cantidad">
+              <button class="qty-btn" data-action="plus" aria-label="Aumentar">+</button>
+            </div>
+          </div>
         </div>
       </article>
 
-      <article class="card">
+      <!-- Card 5 -->
+      <article class="card" data-item="maki-combinado" data-name="Maki Combinado" data-price="150">
         <img class="photo" src="menu_assets/media_4.png" alt="Maki Combinado" loading="lazy">
         <div class="card-body">
           <div class="top">
@@ -282,6 +489,7 @@
             <span class="pill blue">Salmón + Ahy tuna</span>
             <span class="pill green">Llenador</span>
           </div>
+
           <details>
             <summary>Ver ingredientes</summary>
             <div class="tags">
@@ -290,19 +498,81 @@
               <span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span>
             </div>
           </details>
+
+          <div class="qty-row">
+            <div class="qty-label">Cantidad</div>
+            <div class="qty-controls">
+              <button class="qty-btn" data-action="minus" aria-label="Disminuir">−</button>
+              <input class="qty-input" type="number" min="0" step="1" value="0" inputmode="numeric" aria-label="Cantidad">
+              <button class="qty-btn" data-action="plus" aria-label="Aumentar">+</button>
+            </div>
+          </div>
         </div>
       </article>
     </section>
 
-    <div class="note" style="margin-top:10px;"></div>
-
     <section id="ordenes" class="section" aria-label="Órdenes adicionales">
       <h3>Órdenes adicionales</h3>
       <div class="addons">
-        <div class='addon'><strong>Edamames</strong><small>Edamames naturales o picositos</small><span class='addon-price'>$ 85</span></div>
-        <div class='addon'><strong>Pay de queso – Original</strong><small>Individual</small><span class='addon-price'>$ 65</span></div>
-        <div class='addon'><strong>Pay de queso – Café</strong><small>Individual</small><span class='addon-price'>$ 65</span></div>
-        <div class='addon'><strong>Pay de queso – Nuez</strong><small>Individual</small><span class='addon-price'>$ 65</span></div>
+        <div class="addon" data-item="addon-edamames" data-name="Edamames" data-price="85">
+          <strong>Edamames</strong>
+          <small>Edamames naturales o picositos</small>
+          <span class="addon-price">$ 85</span>
+
+          <div class="qty-row">
+            <div class="qty-label">Cantidad</div>
+            <div class="qty-controls">
+              <button class="qty-btn" data-action="minus" aria-label="Disminuir">−</button>
+              <input class="qty-input" type="number" min="0" step="1" value="0" inputmode="numeric" aria-label="Cantidad">
+              <button class="qty-btn" data-action="plus" aria-label="Aumentar">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="addon" data-item="addon-pay-original" data-name="Pay de queso – Original" data-price="65">
+          <strong>Pay de queso – Original</strong>
+          <small>Individual</small>
+          <span class="addon-price">$ 65</span>
+
+          <div class="qty-row">
+            <div class="qty-label">Cantidad</div>
+            <div class="qty-controls">
+              <button class="qty-btn" data-action="minus" aria-label="Disminuir">−</button>
+              <input class="qty-input" type="number" min="0" step="1" value="0" inputmode="numeric" aria-label="Cantidad">
+              <button class="qty-btn" data-action="plus" aria-label="Aumentar">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="addon" data-item="addon-pay-cafe" data-name="Pay de queso – Café" data-price="65">
+          <strong>Pay de queso – Café</strong>
+          <small>Individual</small>
+          <span class="addon-price">$ 65</span>
+
+          <div class="qty-row">
+            <div class="qty-label">Cantidad</div>
+            <div class="qty-controls">
+              <button class="qty-btn" data-action="minus" aria-label="Disminuir">−</button>
+              <input class="qty-input" type="number" min="0" step="1" value="0" inputmode="numeric" aria-label="Cantidad">
+              <button class="qty-btn" data-action="plus" aria-label="Aumentar">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="addon" data-item="addon-pay-nuez" data-name="Pay de queso – Nuez" data-price="65">
+          <strong>Pay de queso – Nuez</strong>
+          <small>Individual</small>
+          <span class="addon-price">$ 65</span>
+
+          <div class="qty-row">
+            <div class="qty-label">Cantidad</div>
+            <div class="qty-controls">
+              <button class="qty-btn" data-action="minus" aria-label="Disminuir">−</button>
+              <input class="qty-input" type="number" min="0" step="1" value="0" inputmode="numeric" aria-label="Cantidad">
+              <button class="qty-btn" data-action="plus" aria-label="Aumentar">+</button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -322,91 +592,168 @@
     </footer>
   </main>
 
+  <!-- Barra fija de carrito -->
+  <div class="cartbar" role="region" aria-label="Resumen del pedido">
+    <div class="cart-inner">
+      <div>
+        <div class="cart-total">
+          <strong id="cart-total">$ 0</strong>
+          <span id="cart-count">0 artículos</span>
+        </div>
+        <div id="cart-items" class="cart-items">Selecciona tus productos para ver el resumen aquí.</div>
+      </div>
+
+      <div class="cart-actions">
+        <button id="cart-clear" class="btn ghost" type="button">Vaciar</button>
+        <a id="wa-order" class="btn primary" href="#" target="_blank" rel="noopener">Ordenar por WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // === Utilidades de tiempo para America/Tijuana ===
-    const TZ = 'America/Tijuana';
-
-    // Convierte horas/minutos (24h) a Date con la zona horaria deseada sin perder el día local
-    function dateForHM(dayDate, h, m=0) {
-      const parts = new Intl.DateTimeFormat('en-CA', {
-        timeZone: TZ, year:'numeric', month:'2-digit', day:'2-digit'
-      }).formatToParts(dayDate).reduce((o,p)=> (o[p.type]=p.value, o), {});
-      const yyyy = +parts.year, mm = +parts.month, dd = +parts.day;
-      return new Date(Date.UTC(yyyy, mm-1, dd, h, m, 0));
-    }
-
-    function addDays(d, n){ const nd = new Date(d.getTime()); nd.setUTCDate(nd.getUTCDate()+n); return nd; }
-
-    const fmtHour = new Intl.DateTimeFormat('es-MX',{ timeZone: TZ, hour:'numeric', minute:'2-digit' });
-    const fmtDayEs = new Intl.DateTimeFormat('es-MX',{ timeZone: TZ, weekday:'long' });
-    const fmtDayShort = new Intl.DateTimeFormat('en-US',{ timeZone: TZ, weekday:'short' }); // Mon..Sun
-
-    function getTodayWindows(now){
-      const dayShort = fmtDayShort.format(now); // e.g., Fri
-      // Ventanas por día (24h) - NUEVOS HORARIOS: Vie-Sab-Dom 12:00-21:00
-      const map = {
-        'Fri': [[12,0, 21,0]],
-        'Sat': [[12,0, 21,0]],
-        'Sun': [[12,0, 21,0]]
-      };
-      const wins = map[dayShort] || [];
-      return wins.map(([sh,sm, eh,em]) => [dateForHM(now, sh, sm), dateForHM(now, eh, em)]);
-    }
-
-    function getNextOpen(now){
-      for(let i=0;i<7;i++){
-        const ref = addDays(now, i);
-        const wins = getTodayWindows(ref);
-        for(const [start, end] of wins){
-          if (now <= end){
-            if (now < start) return start;
-            if (now >= start && now < end) return now; // ya abierto
-          }
-        }
-      }
-      return null;
-    }
-
-    function isOpenNow(now){
-      const wins = getTodayWindows(now);
-      return wins.some(([start,end]) => now >= start && now < end);
-    }
-
+    // ====== ESTADO ABIERTO/CERRADO (sin "próxima apertura") ======
     function renderStatus(){
-      const now = new Date();
       const badge = document.getElementById('status-badge');
       const footerMsg = document.getElementById('open-today-msg');
+      const now = new Date();
 
-      const abierto = isOpenNow(now);
-      let html = '';
-      if (abierto){
-        html = `<span class="dot ok" aria-hidden="true"></span>Abierto ahora`;
-      } else {
-        const next = getNextOpen(now);
-        html =
-          `<span class="dot off" aria-hidden="true"></span>
-           Cerrado ahora <span class="status-next">• Abrimos Vie–Dom 12:00–9:00</span>
-           ${next ? `<span class="status-next">• Próxima apertura: ${fmtHour.format(next)}</span>` : ''}`;
+      const TZ = 'America/Tijuana';
+      const fmt = new Intl.DateTimeFormat('en-US', { timeZone: TZ, weekday:'short', hour:'2-digit', minute:'2-digit', hour12:false });
+      const parts = fmt.formatToParts(now).reduce((o,p)=> (o[p.type]=p.value, o), {});
+      const day = parts.weekday;
+      const mins = (parseInt(parts.hour,10) * 60) + parseInt(parts.minute,10);
+
+      const openToday = (day === 'Fri' || day === 'Sat' || day === 'Sun');
+      const isOpen = openToday && (mins >= 12*60) && (mins < 21*60);
+
+      if (badge){
+        if (isOpen){
+          badge.innerHTML = `<span class="dot ok" aria-hidden="true"></span>Abierto ahora`;
+        } else {
+          badge.innerHTML = `<span class="dot off" aria-hidden="true"></span>Cerrado <span class="status-next">• Abrimos viernes a domingo 12–9</span>`;
+        }
       }
-      if (badge) badge.innerHTML = html;
-
-      const dayShort = fmtDayShort.format(now);
-      const hoursTodayText = ({
-        'Fri': '12:00 pm – 9:00 pm',
-        'Sat': '12:00 pm – 9:00 pm',
-        'Sun': '12:00 pm – 9:00 pm'
-      })[dayShort];
-
-      const dayEs = fmtDayEs.format(now);
-      if (footerMsg) {
-        footerMsg.textContent = hoursTodayText
-          ? `Hoy (${dayEs}): ${hoursTodayText}`
-          : 'Abrimos Viernes a Domingo de 12:00 pm a 9:00 pm.';
+      if (footerMsg){
+        footerMsg.textContent = openToday ? 'Hoy: 12:00 pm – 9:00 pm' : 'Abrimos Viernes a Domingo de 12:00 pm a 9:00 pm.';
       }
     }
-
     renderStatus();
     setInterval(renderStatus, 60 * 1000);
+
+    // ====== CARRITO + WHATSAPP ======
+    const WA_PHONE = '526641644646'; // +52 664 164 4646
+    const cart = new Map(); // id -> {name, price, qty}
+
+    const money = (n) => `$ ${n.toLocaleString('es-MX')}`;
+    const getQty = (id) => (cart.get(id)?.qty ?? 0);
+
+    function setQty(id, name, price, qty){
+      qty = Math.max(0, Math.min(999, Number(qty) || 0));
+      if (qty === 0){
+        cart.delete(id);
+      } else {
+        cart.set(id, { name, price, qty });
+      }
+      updateCartUI();
+      syncInputs(id, qty);
+    }
+
+    function syncInputs(id, qty){
+      document.querySelectorAll(`[data-item="${CSS.escape(id)}"] .qty-input`).forEach(inp => {
+        if (Number(inp.value) !== qty) inp.value = qty;
+      });
+    }
+
+    function buildSummary(){
+      const items = Array.from(cart.values()).filter(x => x.qty > 0);
+      const totalQty = items.reduce((a,b)=> a + b.qty, 0);
+      const total = items.reduce((a,b)=> a + (b.qty * b.price), 0);
+
+      const listShort = items.length
+        ? items.map(i => `${i.qty}x ${i.name}`).join(' • ')
+        : 'Selecciona tus productos para ver el resumen aquí.';
+
+      const lines = items.map(i => `- ${i.qty}x ${i.name} ($${i.price} c/u) = $${i.qty*i.price}`);
+      const msg =
+`Hola 👋, quiero ordenar:
+
+${lines.length ? lines.join('\n') : '(Sin productos seleccionados)'}
+${lines.length ? `\nTotal: $${total} MXN` : ''}
+
+Gracias.`;
+
+      return { totalQty, total, listShort, msg };
+    }
+
+    function updateCartUI(){
+      const { totalQty, total, listShort, msg } = buildSummary();
+
+      document.getElementById('cart-total').textContent = money(total);
+      document.getElementById('cart-count').textContent = `${totalQty} artículo${totalQty===1?'':'s'}`;
+      document.getElementById('cart-items').textContent = listShort;
+
+      const url = `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(msg)}`;
+      const waBtn = document.getElementById('wa-order');
+      const waBtnTop = document.getElementById('wa-order-top');
+
+      // Si no hay items, igual abre WhatsApp pero con mensaje vacío/guía
+      waBtn.href = url;
+      waBtnTop.href = url;
+
+      // Guardar carrito (opcional) para que no se pierda al recargar
+      try{
+        localStorage.setItem('maki_cart_v1', JSON.stringify(Array.from(cart.entries())));
+      }catch(e){}
+    }
+
+    function loadCart(){
+      try{
+        const raw = localStorage.getItem('maki_cart_v1');
+        if (!raw) return;
+        const entries = JSON.parse(raw);
+        if (!Array.isArray(entries)) return;
+        entries.forEach(([id, item])=>{
+          if (item && item.qty > 0) cart.set(id, item);
+        });
+        // reflejar en inputs
+        cart.forEach((v,id)=> syncInputs(id, v.qty));
+      }catch(e){}
+      updateCartUI();
+    }
+
+    function attachQtyHandlers(container){
+      const id = container.getAttribute('data-item');
+      const name = container.getAttribute('data-name');
+      const price = Number(container.getAttribute('data-price') || 0);
+
+      const minus = container.querySelector('.qty-btn[data-action="minus"]');
+      const plus  = container.querySelector('.qty-btn[data-action="plus"]');
+      const input = container.querySelector('.qty-input');
+
+      minus?.addEventListener('click', ()=>{
+        setQty(id, name, price, getQty(id) - 1);
+      });
+      plus?.addEventListener('click', ()=>{
+        setQty(id, name, price, getQty(id) + 1);
+      });
+      input?.addEventListener('input', ()=>{
+        setQty(id, name, price, input.value);
+      });
+    }
+
+    // Inicializar
+    document.querySelectorAll('[data-item][data-name][data-price]').forEach(attachQtyHandlers);
+
+    document.getElementById('cart-clear').addEventListener('click', ()=>{
+      cart.clear();
+      document.querySelectorAll('.qty-input').forEach(i => i.value = 0);
+      try{ localStorage.removeItem('maki_cart_v1'); }catch(e){}
+      updateCartUI();
+    });
+
+    loadCart();
+    updateCartUI();
   </script>
 </body>
 </html>
+``
