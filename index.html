@@ -271,28 +271,8 @@
     .qr img{width:160px; height:160px; background:#fff; padding:10px; border-radius:14px;}
     .note{color:var(--muted); font-size:12px; line-height:1.4;}
 
-    /* =========================
-       BOTÓN FLOTANTE WHATSAPP
-       ========================= */
-    .wa-float{
-      position: fixed;
-      right: 16px;
-      bottom: calc(150px + env(safe-area-inset-bottom)); /* arriba del carrito */
-      z-index: 60;
-      display: none; /* oculto por defecto (desktop) */
-      padding: 14px 18px;
-      border-radius: 999px;
-      background: #25D366;
-      color: #071018;
-      font-weight: 900;
-      font-size: 14px;
-      text-decoration: none;
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-    }
-
     /* ===== RESPONSIVE FIX (evita encimados) ===== */
     @media (max-width: 768px){
-      /* HEADER */
       .header-inner{
         flex-direction: column;
         align-items: stretch;
@@ -316,7 +296,6 @@
         white-space: normal;
       }
 
-      /* HERO */
       .hero{
         flex-direction: column;
         align-items: flex-start;
@@ -337,7 +316,6 @@
         max-width: 100%;
       }
 
-      /* CART */
       .cart-inner{
         flex-direction: column;
         align-items: stretch;
@@ -353,13 +331,6 @@
       .cart-actions .btn{
         flex: 1 1 auto;
         text-align: center;
-      }
-
-      /* MOSTRAR BOTÓN FLOTANTE SOLO EN MÓVIL */
-      .wa-float{
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
       }
     }
 
@@ -386,9 +357,9 @@
         <span id="status-badge" class="status-badge" aria-live="polite" title="Estado en tiempo real"></span>
       </div>
 
+      <!-- SOLO DEJAMOS "ORDENAR POR WHATSAPP" -->
       <div class="cta">
-        <a class="btn" href="#horarios">Horarios</a>
-        <a id="wa-order-top" class="btn primary" href="#" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+        <a id="wa-order-top" class="btn primary" href="#" target="_blank" rel="noopener">Ordenar por WhatsApp</a>
       </div>
     </div>
   </header>
@@ -706,11 +677,6 @@
     </div>
   </div>
 
-  <!-- Botón flotante WhatsApp (SOLO MÓVIL) -->
-  <a id="wa-float" class="wa-float" href="#" target="_blank" rel="noopener" aria-label="Ordenar por WhatsApp">
-    WhatsApp
-  </a>
-
   <script>
     // ====== ESTADO ABIERTO/CERRADO (sin "próxima apertura") ======
     function renderStatus(){
@@ -742,7 +708,7 @@
     setInterval(renderStatus, 60 * 1000);
 
     // ====== CARRITO + WHATSAPP ======
-    const WA_PHONE = '526641644646'; // +52 664 164 4646
+    const WA_PHONE = '526641644646';
     const cart = new Map(); // id -> {name, price, qty}
 
     const money = (n) => `$ ${n.toLocaleString('es-MX')}`;
@@ -778,8 +744,8 @@
       const msg =
 `Hola 👋, quiero ordenar:
 
-${lines.length ? lines.join('\\n') : '(Sin productos seleccionados)'}
-${lines.length ? `\\nTotal: $${total} MXN` : ''}
+${lines.length ? lines.join('\n') : '(Sin productos seleccionados)'}
+${lines.length ? `\nTotal: $${total} MXN` : ''}
 
 Gracias.`;
 
@@ -796,11 +762,9 @@ Gracias.`;
       const url = `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(msg)}`;
       const waBtn = document.getElementById('wa-order');
       const waBtnTop = document.getElementById('wa-order-top');
-      const waFloat = document.getElementById('wa-float');
 
       waBtn.href = url;
       waBtnTop.href = url;
-      if (waFloat) waFloat.href = url;
 
       try{
         localStorage.setItem('maki_cart_v1', JSON.stringify(Array.from(cart.entries())));
@@ -855,3 +819,5 @@ Gracias.`;
   </script>
 </body>
 </html>
+``
+
