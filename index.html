@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -25,7 +26,7 @@
       border-bottom:1px solid var(--border);
     }
     .header-inner{width:min(1100px, 92vw); margin:0 auto; padding:14px 0; display:flex; align-items:center; justify-content:space-between; gap:12px;}
-    .brand{display:flex; align-items:center; gap:10px;}
+    .brand{display:flex; align-items:center; gap:12px;}
     .brand h1{margin:0; font-size:18px; letter-spacing:.2px;}
     .brand small{color:var(--muted)}
     .btn{display:inline-block; text-decoration:none; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.18);
@@ -33,11 +34,21 @@
     .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.10);}
     .btn.primary{background: linear-gradient(135deg, rgba(34,197,94,.85), rgba(56,189,248,.75)); color:#071018; font-weight:700;}
 
+    /* --- Logo en header --- */
+    .logo{
+      width:44px; height:44px; border-radius:12px;
+      object-fit:contain;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.18);
+      padding:6px;
+    }
+
     /* Badge abierto/cerrado */
     .status-badge{
       display:inline-flex; align-items:center; gap:8px;
       padding:6px 10px; border-radius:999px; font-size:12px; font-weight:700;
       background: var(--chip); border:1px solid rgba(255,255,255,.16);
+      white-space: nowrap;
     }
     .dot{width:8px; height:8px; border-radius:50%;}
     .dot.ok{background: var(--ok); box-shadow:0 0 0 3px rgba(34,197,94,.18);}
@@ -46,13 +57,13 @@
 
     .wrap{width:min(1100px, 92vw); margin:20px auto 60px;}
     .hero{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px;
-      padding:18px; border-radius:var(--radius); border:1px solid var(--border); background: rgba(255,255,255,.05); box-shadow: var(--shadow);}    
+      padding:18px; border-radius:var(--radius); border:1px solid var(--border); background: rgba(255,255,255,.05); box-shadow: var(--shadow);}
     .hero h2{margin:0; font-size:20px;}
     .hero p{margin:6px 0 0; color:var(--muted); max-width: 70ch; line-height:1.35;}
     .cta{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
 
     .grid{margin-top:14px; display:grid; grid-template-columns: repeat(12, 1fr); gap:14px;}
-    .card{grid-column: span 12; background:var(--card); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; box-shadow: 0 16px 40px rgba(0,0,0,.25);}    
+    .card{grid-column: span 12; background:var(--card); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; box-shadow: 0 16px 40px rgba(0,0,0,.25);}
     @media (min-width: 820px){ .card{grid-column: span 6;} }
     .photo{width:100%; height:220px; object-fit:cover; display:block;}
     .photo.placeholder{height:220px; background: linear-gradient(135deg, rgba(56,189,248,.20), rgba(34,197,94,.14));}
@@ -62,21 +73,21 @@
     .price{font-weight:800; color: rgba(255,255,255,.95);}
     .sub{margin-top:6px; color:var(--muted); font-size:12px; line-height:1.35;}
     .meta{margin-top:10px; display:flex; flex-wrap:wrap; gap:8px;}
-    .pill{font-size:11px; padding:6px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.05);}    
-    .pill.blue{border-color: rgba(56,189,248,.35); background: rgba(56,189,248,.12);}    
-    .pill.green{border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.12);}    
+    .pill{font-size:11px; padding:6px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.05);}
+    .pill.blue{border-color: rgba(56,189,248,.35); background: rgba(56,189,248,.12);}
+    .pill.green{border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.12);}
 
     details{margin-top:10px;}
-    summary{cursor:pointer; user-select:none; font-size:12px; color: rgba(238,242,255,.9);}    
+    summary{cursor:pointer; user-select:none; font-size:12px; color: rgba(238,242,255,.9);}
     .tags{margin-top:10px; display:flex; flex-wrap:wrap; gap:8px;}
-    .tag{font-size:12px; padding:7px 9px; border-radius:12px; background: var(--card2); border:1px solid rgba(255,255,255,.14);}    
+    .tag{font-size:12px; padding:7px 9px; border-radius:12px; background: var(--card2); border:1px solid rgba(255,255,255,.14);}
 
-    .section{margin-top:18px; padding:16px; border-radius:var(--radius); border:1px dashed rgba(255,255,255,.22); background: rgba(255,255,255,.03);}    
+    .section{margin-top:18px; padding:16px; border-radius:var(--radius); border:1px dashed rgba(255,255,255,.22); background: rgba(255,255,255,.03);}
     .section h3{margin:0 0 10px; font-size:16px;}
     .addons{display:grid; grid-template-columns: repeat(12,1fr); gap:12px;}
     .addon{grid-column: span 12; background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:12px; position:relative;}
     @media (min-width: 820px){ .addon{grid-column: span 4;} }
-    .addon small{display:block; margin-top:4px; color:var(--muted);}    
+    .addon small{display:block; margin-top:4px; color:var(--muted);}
     .addon-price{position:absolute; top:12px; right:12px; font-weight:800;}
 
     .qr{display:flex; gap:14px; align-items:center; flex-wrap:wrap;}
@@ -96,14 +107,22 @@
   <header>
     <div class="header-inner">
       <div class="brand">
-        <h1>Maki Burron</h1>
-        <small>Sushi estilo burrito para llevar</small>
+        <img class="logo" src="menu_assets/logo.png" alt="Logo Maki Burron" loading="eager">
+        <div>
+          <h1>Maki Burron</h1>
+          <small>Sushi estilo burrito para llevar</small>
+        </div>
         <!-- Badge en vivo -->
         <span id="status-badge" class="status-badge" aria-live="polite" title="Estado en tiempo real"></span>
       </div>
+
       <div class="cta">
         <a class="btn" href="#horarios">Horarios</a>
-        <a class="btn primary" href="https://wa.me/526641644646?text=Hola%2C%20quiero%20hacer%20un%20pedido%20del%20men%C3%BA.%20" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+        <a class="btn primary"
+           href="https://wa.me/526641644646?text=Hola%20👋%20Quiero%20hacer%20un%20pedido%20de%20Maki%20Burron"
+           target="_blank" rel="noopener">
+          Pedir por WhatsApp
+        </a>
       </div>
     </div>
   </header>
@@ -112,7 +131,10 @@
     <section class="hero">
       <div>
         <h2>Sushi estilo burrito</h2>
-        <p><strong>Complemento incluido:</strong> Edamames picositos o ensalada verde<br><strong>Hazlo Flaming por (15$)</strong> </p>
+        <p>
+          <strong>Complemento incluido:</strong> Edamames picositos o ensalada verde<br>
+          <strong>Hazlo Flaming +$15</strong>
+        </p>
       </div>
       <div class="cta">
         <a class="btn" href="#menu">Ver makis</a>
@@ -128,9 +150,10 @@
           <span class="hour-dot" aria-hidden="true"></span>
           <div>
             <div class="hour-day">Viernes</div>
-            <div class="hour-time">5:00 pm – 10:00 pm</div>
+            <div class="hour-time">12:00 pm – 9:00 pm</div>
           </div>
         </div>
+
         <div class="hour-item">
           <span class="hour-dot" aria-hidden="true"></span>
           <div>
@@ -138,11 +161,12 @@
             <div class="hour-time">12:00 pm – 9:00 pm</div>
           </div>
         </div>
+
         <div class="hour-item">
           <span class="hour-dot" aria-hidden="true"></span>
           <div>
             <div class="hour-day">Domingo</div>
-            <div class="hour-time">10:00 am – 2:00 pm • 7:00 pm – 10:00 pm</div>
+            <div class="hour-time">12:00 pm – 9:00 pm</div>
           </div>
         </div>
       </div>
@@ -164,7 +188,11 @@
           </div>
           <details>
             <summary>Ver ingredientes</summary>
-            <div class="tags"><span class="tag">Alga</span><span class="tag">Arroz</span><span class="tag">Aguacate</span><span class="tag">Pepino</span><span class="tag">Queso Philadelphia</span><span class="tag">Salmón</span><span class="tag">Surimi</span><span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span></div>
+            <div class="tags">
+              <span class="tag">Alga</span><span class="tag">Arroz</span><span class="tag">Aguacate</span><span class="tag">Pepino</span>
+              <span class="tag">Queso Philadelphia</span><span class="tag">Salmón</span><span class="tag">Surimi</span>
+              <span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span>
+            </div>
           </details>
         </div>
       </article>
@@ -184,7 +212,11 @@
           </div>
           <details>
             <summary>Ver ingredientes</summary>
-            <div class="tags"><span class="tag">Alga</span><span class="tag">Arroz</span><span class="tag">Aguacate</span><span class="tag">Pepino</span><span class="tag">Queso Philadelphia</span><span class="tag">Ahy tuna</span><span class="tag">Surimi</span><span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span></div>
+            <div class="tags">
+              <span class="tag">Alga</span><span class="tag">Arroz</span><span class="tag">Aguacate</span><span class="tag">Pepino</span>
+              <span class="tag">Queso Philadelphia</span><span class="tag">Ahy tuna</span><span class="tag">Surimi</span>
+              <span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span>
+            </div>
           </details>
         </div>
       </article>
@@ -204,7 +236,11 @@
           </div>
           <details>
             <summary>Ver ingredientes</summary>
-            <div class="tags"><span class="tag">Alga</span><span class="tag">Arroz</span><span class="tag">Aguacate</span><span class="tag">Pepino</span><span class="tag">Queso Philadelphia</span><span class="tag">Camarón</span><span class="tag">Surimi</span><span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span></div>
+            <div class="tags">
+              <span class="tag">Alga</span><span class="tag">Arroz</span><span class="tag">Aguacate</span><span class="tag">Pepino</span>
+              <span class="tag">Queso Philadelphia</span><span class="tag">Camarón</span><span class="tag">Surimi</span>
+              <span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span>
+            </div>
           </details>
         </div>
       </article>
@@ -224,7 +260,11 @@
           </div>
           <details>
             <summary>Ver ingredientes</summary>
-            <div class="tags"><span class="tag">Alga</span><span class="tag">Arroz</span><span class="tag">Aguacate</span><span class="tag">Pepino</span><span class="tag">Queso Philadelphia</span><span class="tag">Camarón</span><span class="tag">Arrachera</span><span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span></div>
+            <div class="tags">
+              <span class="tag">Alga</span><span class="tag">Arroz</span><span class="tag">Aguacate</span><span class="tag">Pepino</span>
+              <span class="tag">Queso Philadelphia</span><span class="tag">Camarón</span><span class="tag">Arrachera</span>
+              <span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span>
+            </div>
           </details>
         </div>
       </article>
@@ -244,7 +284,11 @@
           </div>
           <details>
             <summary>Ver ingredientes</summary>
-            <div class="tags"><span class="tag">Alga</span><span class="tag">Arroz</span><span class="tag">Aguacate</span><span class="tag">Pepino</span><span class="tag">Queso Philadelphia</span><span class="tag">Salmón</span><span class="tag">Ahy tuna</span><span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span></div>
+            <div class="tags">
+              <span class="tag">Alga</span><span class="tag">Arroz</span><span class="tag">Aguacate</span><span class="tag">Pepino</span>
+              <span class="tag">Queso Philadelphia</span><span class="tag">Salmón</span><span class="tag">Ahy tuna</span>
+              <span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span>
+            </div>
           </details>
         </div>
       </article>
@@ -284,37 +328,32 @@
 
     // Convierte horas/minutos (24h) a Date con la zona horaria deseada sin perder el día local
     function dateForHM(dayDate, h, m=0) {
-      // dayDate: Date en UTC; construimos una fecha local según TZ
       const parts = new Intl.DateTimeFormat('en-CA', {
         timeZone: TZ, year:'numeric', month:'2-digit', day:'2-digit'
       }).formatToParts(dayDate).reduce((o,p)=> (o[p.type]=p.value, o), {});
       const yyyy = +parts.year, mm = +parts.month, dd = +parts.day;
-      // Creamos fecha local "yyyy-mm-ddThh:mm:00" interpretada en TZ al comparar
       return new Date(Date.UTC(yyyy, mm-1, dd, h, m, 0));
     }
 
-    // Suma días manteniendo TZ
     function addDays(d, n){ const nd = new Date(d.getTime()); nd.setUTCDate(nd.getUTCDate()+n); return nd; }
 
-    // Formateadores
     const fmtHour = new Intl.DateTimeFormat('es-MX',{ timeZone: TZ, hour:'numeric', minute:'2-digit' });
     const fmtDayEs = new Intl.DateTimeFormat('es-MX',{ timeZone: TZ, weekday:'long' });
     const fmtDayShort = new Intl.DateTimeFormat('en-US',{ timeZone: TZ, weekday:'short' }); // Mon..Sun
 
     function getTodayWindows(now){
       const dayShort = fmtDayShort.format(now); // e.g., Fri
-      // Ventanas por día (24h)
+      // Ventanas por día (24h) - NUEVOS HORARIOS: Vie-Sab-Dom 12:00-21:00
       const map = {
-        'Fri': [[17,0, 22,0]],
+        'Fri': [[12,0, 21,0]],
         'Sat': [[12,0, 21,0]],
-        'Sun': [[10,0, 14,0], [19,0, 22,0]]
+        'Sun': [[12,0, 21,0]]
       };
       const wins = map[dayShort] || [];
       return wins.map(([sh,sm, eh,em]) => [dateForHM(now, sh, sm), dateForHM(now, eh, em)]);
     }
 
     function getNextOpen(now){
-      // Busca la próxima apertura desde ahora y hasta 7 días
       for(let i=0;i<7;i++){
         const ref = addDays(now, i);
         const wins = getTodayWindows(ref);
@@ -334,45 +373,40 @@
     }
 
     function renderStatus(){
-      const now = new Date(); // usamos hora actual
+      const now = new Date();
       const badge = document.getElementById('status-badge');
       const footerMsg = document.getElementById('open-today-msg');
-      const today = new Date(now.getTime());
 
-      // Badge abierto/cerrado + próxima apertura
       const abierto = isOpenNow(now);
       let html = '';
       if (abierto){
         html = `<span class="dot ok" aria-hidden="true"></span>Abierto ahora`;
       } else {
         const next = getNextOpen(now);
-        if (next){
-          html = `<span class="dot off" aria-hidden="true"></span>Cerrado <span class="status-next">• Abre a las ${fmtHour.format(next)}</span>`;
-        } else {
-          html = `<span class="dot off" aria-hidden="true"></span>Cerrado`;
-        }
+        html =
+          `<span class="dot off" aria-hidden="true"></span>
+           Cerrado ahora <span class="status-next">• Abrimos Vie–Dom 12:00–9:00</span>
+           ${next ? `<span class="status-next">• Próxima apertura: ${fmtHour.format(next)}</span>` : ''}`;
       }
       if (badge) badge.innerHTML = html;
 
-      // Mensaje del día en el footer
-      const dayShort = fmtDayShort.format(today);
+      const dayShort = fmtDayShort.format(now);
       const hoursTodayText = ({
-        'Fri': '5:00 pm – 10:00 pm',
+        'Fri': '12:00 pm – 9:00 pm',
         'Sat': '12:00 pm – 9:00 pm',
-        'Sun': '10:00 am – 2:00 pm y 7:00 pm – 10:00 pm'
+        'Sun': '12:00 pm – 9:00 pm'
       })[dayShort];
 
-      const dayEs = fmtDayEs.format(today);
+      const dayEs = fmtDayEs.format(now);
       if (footerMsg) {
-        footerMsg.textContent = hoursTodayText ? `Hoy (${dayEs}): ${hoursTodayText}` : 'Revisa nuestros horarios de fin de semana.';
+        footerMsg.textContent = hoursTodayText
+          ? `Hoy (${dayEs}): ${hoursTodayText}`
+          : 'Abrimos Viernes a Domingo de 12:00 pm a 9:00 pm.';
       }
     }
 
     renderStatus();
-    // Actualiza cada minuto por si el usuario deja abierta la página
     setInterval(renderStatus, 60 * 1000);
   </script>
 </body>
 </html>
-
-
