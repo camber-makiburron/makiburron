@@ -215,6 +215,46 @@
     .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
     .qty-input[type=number]{ -moz-appearance: textfield; }
 
+    /* ====== FLAMING (por producto) ====== */
+    .flaming-row{
+      margin-top:10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+    }
+    .flaming-row[hidden]{ display:none !important; }
+    .flaming-row label{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:12px;
+      font-weight:800;
+      color: rgba(238,242,255,.92);
+      cursor:pointer;
+    }
+    .flaming-row input[type="checkbox"]{
+      width:18px;
+      height:18px;
+      accent-color: var(--brand);
+    }
+    .flaming-row .flaming-price{
+      font-weight:900;
+      color: rgba(255,255,255,.95);
+    }
+    .flaming-row .flaming-hint{
+      display:block;
+      font-size:11px;
+      font-weight:700;
+      color: var(--muted);
+      margin-left:28px;
+      margin-top:2px;
+    }
+
     /* ====== BARRA DE CARRITO FIJA ====== */
     .cartbar{
       position:fixed;
@@ -426,6 +466,18 @@
             </div>
           </details>
 
+          <!-- FLAMING -->
+          <div class="flaming-row" hidden>
+            <div>
+              <label>
+                <input class="flaming-check" type="checkbox" disabled>
+                Hazlo Flaming
+              </label>
+              <span class="flaming-hint">Se cobra por cada burrito seleccionado</span>
+            </div>
+            <div class="flaming-price">+$ 15</div>
+          </div>
+
           <div class="qty-row">
             <div class="qty-label">Cantidad</div>
             <div class="qty-controls">
@@ -460,6 +512,18 @@
               <span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span>
             </div>
           </details>
+
+          <!-- FLAMING -->
+          <div class="flaming-row" hidden>
+            <div>
+              <label>
+                <input class="flaming-check" type="checkbox" disabled>
+                Hazlo Flaming
+              </label>
+              <span class="flaming-hint">Se cobra por cada burrito seleccionado</span>
+            </div>
+            <div class="flaming-price">+$ 15</div>
+          </div>
 
           <div class="qty-row">
             <div class="qty-label">Cantidad</div>
@@ -496,6 +560,18 @@
             </div>
           </details>
 
+          <!-- FLAMING -->
+          <div class="flaming-row" hidden>
+            <div>
+              <label>
+                <input class="flaming-check" type="checkbox" disabled>
+                Hazlo Flaming
+              </label>
+              <span class="flaming-hint">Se cobra por cada burrito seleccionado</span>
+            </div>
+            <div class="flaming-price">+$ 15</div>
+          </div>
+
           <div class="qty-row">
             <div class="qty-label">Cantidad</div>
             <div class="qty-controls">
@@ -531,6 +607,18 @@
             </div>
           </details>
 
+          <!-- FLAMING -->
+          <div class="flaming-row" hidden>
+            <div>
+              <label>
+                <input class="flaming-check" type="checkbox" disabled>
+                Hazlo Flaming
+              </label>
+              <span class="flaming-hint">Se cobra por cada burrito seleccionado</span>
+            </div>
+            <div class="flaming-price">+$ 15</div>
+          </div>
+
           <div class="qty-row">
             <div class="qty-label">Cantidad</div>
             <div class="qty-controls">
@@ -565,6 +653,18 @@
               <span class="tag">Cebolla crunch</span><span class="tag">Mix de ensalada</span>
             </div>
           </details>
+
+          <!-- FLAMING -->
+          <div class="flaming-row" hidden>
+            <div>
+              <label>
+                <input class="flaming-check" type="checkbox" disabled>
+                Hazlo Flaming
+              </label>
+              <span class="flaming-hint">Se cobra por cada burrito seleccionado</span>
+            </div>
+            <div class="flaming-price">+$ 15</div>
+          </div>
 
           <div class="qty-row">
             <div class="qty-label">Cantidad</div>
@@ -707,22 +807,43 @@
     renderStatus();
     setInterval(renderStatus, 60 * 1000);
 
-    // ====== CARRITO + WHATSAPP ======
-    const WA_PHONE = '526646662616'; // ✅ NUEVO NÚMERO
-    const cart = new Map(); // id -> {name, price, qty}
+    // ====== CARRITO + WHATSAPP + FLAMING ======
+    const WA_PHONE = '526646662616'; // ✅ NÚMERO
+    const FLAMING_FEE = 15;
+
+    // cart: id -> {name, price, qty, flaming}
+    const cart = new Map();
 
     const money = (n) => `$ ${n.toLocaleString('es-MX')}`;
     const getQty = (id) => (cart.get(id)?.qty ?? 0);
+    const getFlaming = (id) => (cart.get(id)?.flaming ?? false);
 
     function setQty(id, name, price, qty){
       qty = Math.max(0, Math.min(999, Number(qty) || 0));
+
+      const prev = cart.get(id);
+      const flamingPrev = prev?.flaming ?? false;
+
       if (qty === 0){
         cart.delete(id);
       } else {
-        cart.set(id, { name, price, qty });
+        cart.set(id, { name, price, qty, flaming: flamingPrev });
       }
-      updateCartUI();
+
       syncInputs(id, qty);
+      syncFlamingUI(id);
+      updateCartUI();
+    }
+
+    function setFlaming(id, value){
+      const item = cart.get(id);
+      if (!item) return;
+      item.flaming = !!value;
+      cart.set(id, item);
+      updateCartUI();
+      try{
+        localStorage.setItem('maki_cart_v1', JSON.stringify(Array.from(cart.entries())));
+      }catch(e){}
     }
 
     function syncInputs(id, qty){
@@ -731,16 +852,46 @@
       });
     }
 
+    function syncFlamingUI(id){
+      document.querySelectorAll(`[data-item="${CSS.escape(id)}"]`).forEach(container => {
+        const row = container.querySelector('.flaming-row');
+        const chk = container.querySelector('.flaming-check');
+        if (!row || !chk) return; // addons no traen flaming
+
+        const qty = getQty(id);
+
+        if (qty > 0){
+          row.hidden = false;
+          chk.disabled = false;
+          chk.checked = getFlaming(id);
+        } else {
+          row.hidden = true;
+          chk.disabled = true;
+          chk.checked = false;
+        }
+      });
+    }
+
     function buildSummary(){
       const items = Array.from(cart.values()).filter(x => x.qty > 0);
+
       const totalQty = items.reduce((a,b)=> a + b.qty, 0);
-      const total = items.reduce((a,b)=> a + (b.qty * b.price), 0);
+
+      const total = items.reduce((a,b)=> {
+        const flamingExtra = b.flaming ? (FLAMING_FEE * b.qty) : 0;
+        return a + (b.qty * b.price) + flamingExtra;
+      }, 0);
 
       const listShort = items.length
-        ? items.map(i => `${i.qty}x ${i.name}`).join(' • ')
+        ? items.map(i => `${i.qty}x ${i.name}${i.flaming ? ' (Flaming)' : ''}`).join(' • ')
         : 'Selecciona tus productos para ver el resumen aquí.';
 
-      const lines = items.map(i => `- ${i.qty}x ${i.name} ($${i.price} c/u) = $${i.qty*i.price}`);
+      const lines = items.map(i => {
+        const baseLine = `- ${i.qty}x ${i.name} ($${i.price} c/u) = $${i.qty*i.price}`;
+        const flamingLine = i.flaming ? `  + Flaming ($${FLAMING_FEE} c/u) = $${i.qty*FLAMING_FEE}` : '';
+        return [baseLine, flamingLine].filter(Boolean).join('\n');
+      });
+
       const msg =
 `Hola 👋, quiero ordenar:
 
@@ -759,12 +910,10 @@ Gracias.`;
       document.getElementById('cart-count').textContent = `${totalQty} artículo${totalQty===1?'':'s'}`;
       document.getElementById('cart-items').textContent = listShort;
 
-      // ✅ URL CORREGIDA (antes estaba rota)
       const url = `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(msg)}`;
 
       const waBtn = document.getElementById('wa-order');
       const waBtnTop = document.getElementById('wa-order-top');
-
       waBtn.href = url;
       waBtnTop.href = url;
 
@@ -779,10 +928,15 @@ Gracias.`;
         if (!raw) return;
         const entries = JSON.parse(raw);
         if (!Array.isArray(entries)) return;
+
         entries.forEach(([id, item])=>{
           if (item && item.qty > 0) cart.set(id, item);
         });
-        cart.forEach((v,id)=> syncInputs(id, v.qty));
+
+        cart.forEach((v,id)=>{
+          syncInputs(id, v.qty);
+          syncFlamingUI(id);
+        });
       }catch(e){}
       updateCartUI();
     }
@@ -796,6 +950,9 @@ Gracias.`;
       const plus  = container.querySelector('.qty-btn[data-action="plus"]');
       const input = container.querySelector('.qty-input');
 
+      // Flaming (si existe)
+      const flamingChk = container.querySelector('.flaming-check');
+
       minus?.addEventListener('click', ()=>{
         setQty(id, name, price, getQty(id) - 1);
       });
@@ -805,6 +962,17 @@ Gracias.`;
       input?.addEventListener('input', ()=>{
         setQty(id, name, price, input.value);
       });
+
+      flamingChk?.addEventListener('change', ()=>{
+        if (getQty(id) > 0){
+          setFlaming(id, flamingChk.checked);
+        } else {
+          flamingChk.checked = false;
+        }
+      });
+
+      // estado inicial
+      syncFlamingUI(id);
     }
 
     document.querySelectorAll('[data-item][data-name][data-price]').forEach(attachQtyHandlers);
@@ -812,6 +980,14 @@ Gracias.`;
     document.getElementById('cart-clear').addEventListener('click', ()=>{
       cart.clear();
       document.querySelectorAll('.qty-input').forEach(i => i.value = 0);
+
+      // reset flaming UI
+      document.querySelectorAll('.flaming-check').forEach(chk=>{
+        chk.checked = false;
+        chk.disabled = true;
+      });
+      document.querySelectorAll('.flaming-row').forEach(row=> row.hidden = true);
+
       try{ localStorage.removeItem('maki_cart_v1'); }catch(e){}
       updateCartUI();
     });
