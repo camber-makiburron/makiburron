@@ -649,7 +649,7 @@
         <img src="menu_assets/qr_whatsapp.png" alt="QR WhatsApp">
         <div>
           <div class="note">Escanea el código para abrir WhatsApp con el mensaje listo.</div>
-          <div class="note"><strong>WhatsApp:</strong> +52 664 164 4646</div>
+          <div class="note"><strong>WhatsApp:</strong> +52 664 666 2616</div>
         </div>
       </div>
     </section>
@@ -708,7 +708,7 @@
     setInterval(renderStatus, 60 * 1000);
 
     // ====== CARRITO + WHATSAPP ======
-    const WA_PHONE = '526641644646';
+    const WA_PHONE = '526646662616'; // ✅ NUEVO NÚMERO
     const cart = new Map(); // id -> {name, price, qty}
 
     const money = (n) => `$ ${n.toLocaleString('es-MX')}`;
@@ -759,7 +759,9 @@ Gracias.`;
       document.getElementById('cart-count').textContent = `${totalQty} artículo${totalQty===1?'':'s'}`;
       document.getElementById('cart-items').textContent = listShort;
 
+      // ✅ URL CORREGIDA (antes estaba rota)
       const url = `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(msg)}`;
+
       const waBtn = document.getElementById('wa-order');
       const waBtnTop = document.getElementById('wa-order-top');
 
@@ -819,5 +821,3 @@ Gracias.`;
   </script>
 </body>
 </html>
-``
-
