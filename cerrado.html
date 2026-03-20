@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Cerrado | Maki Burron</title>
+
+  <style>
+    :root{
+      --bg:#0b1220; --card:rgba(255,255,255,.06); --card2:rgba(255,255,255,.10);
+      --text:#eef2ff; --muted:rgba(238,242,255,.75);
+      --brand:#22c55e; --brand2:#38bdf8; --border:rgba(255,255,255,.14);
+      --shadow:0 18px 50px rgba(0,0,0,.45);
+      --ok:#22c55e; --off:#f43f5e; --chip:#0f172a;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 10% 10%, rgba(56,189,248,.18), transparent 55%),
+        radial-gradient(900px 700px at 85% 20%, rgba(34,197,94,.16), transparent 60%),
+        linear-gradient(180deg, #070b14 0%, var(--bg) 55%, #070b14 100%);
+      padding-bottom: 60px;
+      min-height: 100vh;
+    }
+
+    header{
+      position:sticky; top:0; z-index:30;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, rgba(11,18,32,.92), rgba(11,18,32,.65));
+      border-bottom:1px solid var(--border);
+    }
+    .header-inner{
+      width:min(1100px, 92vw); margin:0 auto; padding:14px 0;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+
+    .brand{display:flex; align-items:center; gap:12px; min-width:0;}
+    .brand-text{min-width:0; line-height:1.1}
+    .brand h1{
+      margin:0;
+      font-size:26px;
+      font-weight:900;
+      letter-spacing:1.2px;
+      text-transform:uppercase;
+    }
+    .brand small{color:var(--muted); display:block; margin-top:2px}
+
+    .btn{
+      display:inline-block; text-decoration:none; padding:10px 12px; border-radius:12px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06); color:var(--text); font-size:13px;
+      transition:transform .12s ease, background .12s ease;
+      white-space:nowrap;
+      cursor:pointer;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.10);}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(34,197,94,.85), rgba(56,189,248,.75));
+      color:#071018; font-weight:800;
+      border-color: transparent;
+    }
+    .btn.disabled{
+      opacity:.55;
+      pointer-events:none;
+      filter:saturate(.6);
+    }
+
+    /* Badge */
+    .status-badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border-radius:999px;
+      font-size:12px; font-weight:800;
+      background: var(--chip); border:1px solid rgba(255,255,255,.16);
+      white-space: nowrap;
+    }
+    .dot{width:8px; height:8px; border-radius:50%;}
+    .dot.off{background: var(--off); box-shadow:0 0 0 3px rgba(244,63,94,.18);}
+
+    .wrap{width:min(1100px, 92vw); margin:22px auto 40px;}
+
+    .hero{
+      display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px;
+      padding:18px; border-radius:18px; border:1px solid var(--border);
+      background: rgba(255,255,255,.05); box-shadow: var(--shadow);
+    }
+    .hero-brand{display:flex; align-items:center; gap:14px; min-width:0;}
+    .hero-logo{
+      width:96px; height:96px;
+      border-radius:18px;
+      object-fit:contain;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.18);
+      padding:10px;
+      box-shadow: 0 14px 28px rgba(0,0,0,.25);
+      flex: 0 0 auto;
+    }
+    .hero-text{min-width:0;}
+    .hero h2{
+      margin:0;
+      font-size:26px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.8px;
+    }
+    .hero p{margin:6px 0 0; color:var(--muted); max-width: 75ch; line-height:1.4;}
+
+    .section{
+      margin-top:18px; padding:16px; border-radius:18px;
+      border:1px dashed rgba(255,255,255,.22); background: rgba(255,255,255,.03);
+    }
+    .section h3{margin:0 0 10px; font-size:16px;}
+
+    .notice{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+    }
+    .notice-card{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      border-radius:16px;
+      padding:14px;
+    }
+    .big{
+      font-size:18px;
+      font-weight:900;
+      letter-spacing:.3px;
+    }
+    .muted{color:var(--muted)}
+    .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+    .chip{
+      font-size:12px; font-weight:800;
+      padding:8px 10px; border-radius:999px;
+      background: var(--card2); border:1px solid rgba(255,255,255,.14);
+    }
+
+    .hours { display: grid; grid-template-columns: repeat(12, 1fr); gap: 12px; }
+    .hour-item {
+      grid-column: span 12; display: flex; align-items: center; gap: 12px;
+      padding: 12px; border-radius: 14px;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.14);
+    }
+    .hour-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 0 0 3px rgba(56,189,248,.15);
+    }
+    .hour-day { font-weight: 800; }
+    .hour-time { color: var(--muted); }
+    @media (min-width: 820px){ .hour-item { grid-column: span 4; } }
+
+    footer.note{color:var(--muted); font-size:12px; line-height:1.4; text-align:center; margin-top:18px;}
+
+    @media (max-width: 768px){
+      .header-inner{flex-direction: column; align-items: stretch; gap: 10px;}
+      .brand{flex-direction: column; align-items: flex-start; gap: 6px;}
+      .hero{flex-direction: column; align-items: flex-start;}
+      .hero-brand{flex-direction: column; align-items: flex-start;}
+      .hero-logo{width:72px;height:72px;}
+      .hero h2{font-size:22px;line-height:1.15;}
+      .status-badge{white-space: normal;}
+      .cta{display:flex; gap:10px; flex-wrap:wrap; width:100%;}
+      .cta .btn{flex:1 1 auto; text-align:center; white-space:normal;}
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-text">
+          <h1>MAKI BURRON</h1>
+          <small>Sushi estilo burrito para llevar</small>
+        </div>
+        <span class="status-badge" aria-live="polite" title="Estado actual">
+          <span class="dot off" aria-hidden="true"></span>
+          Cerrado este fin de semana
+        </span>
+      </div>
+
+      <div class="cta">
+        <a id="wa-order-top" class="btn primary disabled" href="#" aria-disabled="true">Ordenar por WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-brand">
+        <img class="hero-logo" src="menu_assets/logo.png" alt="Logo Maki Burron" loading="lazy">
+        <div class="hero-text">
+          <h2>AVISO IMPORTANTE</h2>
+          <p>
+            Este <strong>fin de semana</strong> estaremos <strong>CERRADOS</strong>.
+            Gracias por su comprensión 🙏
+          </p>
+        </div>
+      </div>
+
+      <div class="cta">
+        <a class="btn" href="index.html">Volver al menú</a>
+        <a class="btn" href="#horarios">Ver horarios</a>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Mensaje">
+      <h3>Hoy no estamos tomando pedidos</h3>
+
+      <div class="notice">
+        <div class="notice-card">
+          <div class="big">CERRADO • Fin de semana</div>
+          <div class="muted" style="margin-top:6px;">
+            Volvemos a abrir en nuestro horario habitual. Si quieres, guarda esta página y vuelve más tarde.
+          </div>
+
+          <div class="chips">
+            <span class="chip">📍 Tijuana</span>
+            <span class="chip">🕒 Horario habitual: Vie–Dom 12:00–9:00</span>
+            <span class="chip">💬 WhatsApp temporalmente deshabilitado</span>
+          </div>
+        </div>
+
+        <div class="notice-card">
+          <div class="big">¿Quieres el link listo para WhatsApp?</div>
+          <div class="muted" style="margin-top:6px;">
+            Cuando reabramos, el botón volverá a funcionar automáticamente (si quieres que lo deje automático, te explico abajo).
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="horarios" class="section" aria-label="Horarios">
+      <h3>Horarios</h3>
+      <div class="hours">
+        <div class="hour-item">
+          <span class="hour-dot" aria-hidden="true"></span>
+          <div><div class="hour-day">Viernes</div><div class="hour-time">CERRADO</div></div>
+        </div>
+        <div class="hour-item">
+          <span class="hour-dot" aria-hidden="true"></span>
+          <div><div class="hour-day">Sábado</div><div class="hour-time">CERRADO</div></div>
+        </div>
+        <div class="hour-item">
+          <span class="hour-dot" aria-hidden="true"></span>
+          <div><div class="hour-day">Domingo</div><div class="hour-time">CERRADO</div></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="note">
+      <span id="open-msg"></span>
+    </footer>
+  </main>
+
+  <script>
+    // Mensaje inferior con zona horaria de Tijuana
+    (function(){
+      const el = document.getElementById('open-msg');
+      const TZ = 'America/Tijuana';
+      const now = new Date();
+
+      const fmtDay = new Intl.DateTimeFormat('es-MX', { timeZone: TZ, weekday:'long' });
+      const fmtTime = new Intl.DateTimeFormat('es-MX', { timeZone: TZ, hour:'2-digit', minute:'2-digit' });
+
+      const day = fmtDay.format(now);
+      const time = fmtTime.format(now);
+
+      if (el){
+        el.textContent = `Hoy es ${day} • ${time} (hora de Tijuana). Este fin de semana estamos cerrados.`;
+      }
+    })();
+  </script>
+</body>
+</html>
